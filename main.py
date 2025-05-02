@@ -19,34 +19,32 @@ class CustomerManager:
             a = 0
             for z in x:
                 if z['price'] > self.tax_threshold:
-                    taxed_price = z['price'] * (1 + self.tax_rate)
-                    a += taxed_price
+                    a += z['price'] * (1 + self.tax_rate)
                 else:
                     a += z['price']
             print(y)
             if a > self.discount_threshold:
                 print("Eligible for discount")
+            elif a > 300:
+                print("Potential future discount customer")
             else:
-                if a > 300:
-                    print("Potential future discount customer")
-                else:
-                    print("No discount")
+                print("No discount")
             if a > 1000:
                 print("VIP Customer!")
-            else:
-                if a > 800:
-                    print("Priority Customer")
+            elif a > 800:
+                print("Priority Customer")
 
-def calculate_shipping_fee(purchases):
-    heavy_item = False
-    for purchase in purchases:
-        if purchase.get('weight', 0) > 20:
-            heavy_item = True
-            break
-    if heavy_item:
-        return 50
-    else:
-        return 20
+
+    def calculate_shipping_fee(self, purchases):
+        heavy_item = False
+        for purchase in purchases:
+            if purchase.get('weight', 0) > 20:
+                heavy_item = True
+                break
+        if heavy_item:
+            return 50
+        else:
+            return 20
 
 def calculate_shipping_fee_for_heavy_items(purchases):
     for purchase in purchases:
