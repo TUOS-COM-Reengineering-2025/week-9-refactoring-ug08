@@ -40,6 +40,14 @@ class TestCustomerManager(unittest.TestCase):
             cm.customers
         )
 
+    def test_add_multiple_purchases(self):
+        cm = CustomerManager()
+        name = "Alice"
+        purchase1 = {'price': 50, 'item': 'banana'}
+        purchase2 = {'price': 80, 'item': 'apple'}
+        cm.add_purchase(name, [purchase1, purchase2])
+
+
     def test_discount_eligibility(self):
         cm = CustomerManager()
         cm.add_customer("Bob", [{'price': 600}])
