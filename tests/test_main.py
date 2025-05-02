@@ -40,6 +40,17 @@ class TestCustomerManager(unittest.TestCase):
             cm.customers
         )
 
+    def test_add_purchases(self):
+        cm = CustomerManager()
+        name = "Alice"
+        purchases = [{'price': 50, 'item': 'banana'},{'price': 10, 'item': 'carrot'}]
+        cm.add_purchases(name, purchases)
+
+        self.assertEqual(
+            {name: purchases},
+            cm.customers
+        )
+
     def test_discount_eligibility(self):
         cm = CustomerManager()
         cm.add_customer("Bob", [{'price': 600}])
