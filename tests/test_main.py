@@ -45,7 +45,7 @@ class TestCustomerManager(unittest.TestCase):
         name = "Alice"
         purchase1 = {'price': 50, 'item': 'banana'}
         purchase2 = {'price': 80, 'item': 'apple'}
-        cm.add_purchase(name, [purchase1, purchase2])
+        cm.add_purchases(name, [purchase1, purchase2])
 
 
     def test_add_purchases(self):
