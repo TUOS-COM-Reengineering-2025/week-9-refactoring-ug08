@@ -2,7 +2,7 @@ import unittest
 import io
 import contextlib
 
-from main import CustomerManager, calculate_shipping_fee_for_fragile_items
+from main import CustomerManager, calculate_shipping_fee_for_fragile_items, calculate_shipping_fee_for_heavy_items
 
 class TestCustomerManager(unittest.TestCase):
 
@@ -40,6 +40,14 @@ class TestCustomerManager(unittest.TestCase):
             cm.customers
         )
 
+    def test_add_multiple_purchases(self):
+        cm = CustomerManager()
+        name = "Alice"
+        purchase1 = {'price': 50, 'item': 'banana'}
+        purchase2 = {'price': 80, 'item': 'apple'}
+        cm.add_purchase(name, [purchase1, purchase2])
+
+
     def test_add_purchases(self):
         cm = CustomerManager()
         name = "Alice"
@@ -70,6 +78,13 @@ class TestCustomerManager(unittest.TestCase):
         purchases = [{'price': 100, 'weight': 25}]
 
         fee = cm.calculate_shipping_fee(purchases)
+        self.assertEqual(fee, 50)
+
+    def test_heavy_shipping_fee_function(self):
+        cm = CustomerManager()
+        purchases = [{'price': 100, 'weight': 25}]
+
+        fee = calculate_shipping_fee_for_heavy_items(purchases)
         self.assertEqual(fee, 50)
 
     def test_fragile_item_shipping_fee(self):
