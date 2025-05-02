@@ -11,9 +11,6 @@ class CustomerManager:
         else:
             self.customers[name] = purchases
 
-    def add_purchase(self, name, purchase):
-        self.add_customer(name, [purchase])
-
     def add_purchases(self, name, purchases):
         self.add_customer(name, purchases)
 
@@ -40,16 +37,16 @@ class CustomerManager:
                 if a > 800:
                     print("Priority Customer")
 
-    def calculate_shipping_fee(self, purchases):
-        heavy_item = False
-        for purchase in purchases:
-            if purchase.get('weight', 0) > 20:
-                heavy_item = True
-                break
-        if heavy_item:
-            return 50
-        else:
-            return 20
+def calculate_shipping_fee(purchases):
+    heavy_item = False
+    for purchase in purchases:
+        if purchase.get('weight', 0) > 20:
+            heavy_item = True
+            break
+    if heavy_item:
+        return 50
+    else:
+        return 20
 
 def calculate_shipping_fee_for_heavy_items(purchases):
     for purchase in purchases:
