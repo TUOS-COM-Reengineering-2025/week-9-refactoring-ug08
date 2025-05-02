@@ -40,6 +40,25 @@ class TestCustomerManager(unittest.TestCase):
             cm.customers
         )
 
+    def test_add_multiple_purchases(self):
+        cm = CustomerManager()
+        name = "Alice"
+        purchase1 = {'price': 50, 'item': 'banana'}
+        purchase2 = {'price': 80, 'item': 'apple'}
+        cm.add_purchase(name, [purchase1, purchase2])
+
+
+    def test_add_purchases(self):
+        cm = CustomerManager()
+        name = "Alice"
+        purchases = [{'price': 50, 'item': 'banana'},{'price': 10, 'item': 'carrot'}]
+        cm.add_purchases(name, purchases)
+
+        self.assertEqual(
+            {name: purchases},
+            cm.customers
+        )
+
     def test_discount_eligibility(self):
         cm = CustomerManager()
         cm.add_customer("Bob", [{'price': 600}])
@@ -60,6 +79,19 @@ class TestCustomerManager(unittest.TestCase):
 
         fee = calculate_shipping_fee(purchases, "heavy")
         self.assertEqual(fee, 50)
+
+    def test_heavy_shipping_fee_function(self):
+        cm = CustomerManager()
+        purchases = [{'price': 100, 'weight': 25}]
+
+        fee = calculate_shipping_fee(purchases, "heavy")
+        self.assertEqual(fee, 50)
+
+    def test_heavy_shipping_fee_function(self):
+        cm = CustomerManager()
+        purchases = [{'price': 100, 'weight': 25}]
+
+        fee = calculate_shipping_fee(purchases, "heavy")
 
     def test_fragile_item_shipping_fee(self):
         purchases = [{'price': 70, 'fragile': True}]
